@@ -9,16 +9,29 @@ import {
   Register,
   ResetPassword
 } from '@pages';
+import {
+  AppHeader,
+  IngredientDetails,
+  Modal,
+  OrderInfo,
+  ProtectedRoute
+} from '@components';
 import '../../index.css';
 import styles from './app.module.css';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
-import { ProtectedRoute } from '../protected-route';
+import { useDispatch } from '../../services/store';
+import { useEffect } from 'react';
+import { getIngredients } from '../../services/slices/ingredientsSlice';
 
 const App = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
 
   const backgroundLocation = location.state?.backgroundLocation;
+
+  useEffect(() => {
+    dispatch(getIngredients());
+  }, [dispatch]);
 
   return (
     <div className={styles.app}>
