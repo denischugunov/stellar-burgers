@@ -22,6 +22,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import { useDispatch } from '../../services/store';
 import { useEffect } from 'react';
 import { getIngredients } from '../../services/slices/ingredientsSlice';
+import { getFeeds } from '../../services/slices/feedsSlice';
 
 const App = () => {
   const location = useLocation();
@@ -31,6 +32,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getIngredients());
+    dispatch(getFeeds());
   }, [dispatch]);
 
   return (

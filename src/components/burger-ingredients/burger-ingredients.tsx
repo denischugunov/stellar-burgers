@@ -4,15 +4,16 @@ import { useInView } from 'react-intersection-observer';
 import { TIngredient, TTabMode } from '@utils-types';
 import { BurgerIngredientsUI } from '../ui/burger-ingredients';
 import { useSelector } from '../../services/store';
+import { Preloader } from '@ui';
 
 export const BurgerIngredients: FC = () => {
-  const ingredients = useSelector((state) => state.ingredients.data);
+  const { data, loading } = useSelector((state) => state.ingredients);
 
   const buns: TIngredient[] = [];
   const mains: TIngredient[] = [];
   const sauces: TIngredient[] = [];
 
-  ingredients.forEach((ingredient) => {
+  data.forEach((ingredient) => {
     switch (ingredient.type) {
       case 'bun':
         buns.push(ingredient);
@@ -62,6 +63,10 @@ export const BurgerIngredients: FC = () => {
     if (tab === 'sauce')
       titleSaucesRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  if (loading) {
+    return <Preloader />;
+  }
 
   return (
     <BurgerIngredientsUI
