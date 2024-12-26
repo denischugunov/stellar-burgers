@@ -23,6 +23,7 @@ import { useDispatch } from '../../services/store';
 import { useEffect } from 'react';
 import { getIngredients } from '../../services/slices/ingredientsSlice';
 import { getFeeds } from '../../services/slices/feedsSlice';
+import { getOrders } from '../../services/slices/orderSlice';
 
 const App = () => {
   const location = useLocation();
@@ -33,6 +34,7 @@ const App = () => {
   useEffect(() => {
     dispatch(getIngredients());
     dispatch(getFeeds());
+    dispatch(getOrders());
   }, [dispatch]);
 
   return (
@@ -81,10 +83,9 @@ const App = () => {
               <Profile />
             </ProtectedRoute>
           }
-        >
-          <Route path='orders' element={<ProfileOrders />} />
-          <Route path='orders/:number' element={<OrderInfo />} />
-        </Route>
+        />
+        <Route path='/profile/orders' element={<ProfileOrders />} />
+        <Route path='/profile/orders/:number' element={<OrderInfo />} />
         <Route path='/*' element={<NotFound404 />} />
       </Routes>
 

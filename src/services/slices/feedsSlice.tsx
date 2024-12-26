@@ -3,7 +3,7 @@ import {
   createSlice,
   SerializedError
 } from '@reduxjs/toolkit';
-import { getFeedsApi } from '../../utils/burger-api';
+import { getFeedsApi } from '@api';
 import { TOrdersData } from '@utils-types';
 
 type TFeedsState = {
@@ -42,6 +42,7 @@ const feedsSlice = createSlice({
       })
       .addCase(getFeeds.fulfilled, (state, action) => {
         state.loading = false;
+        state.error = null;
         state.data = action.payload;
       });
   }
