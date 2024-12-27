@@ -3,7 +3,8 @@ import {
   createSlice,
   SerializedError
 } from '@reduxjs/toolkit';
-import { TConstructorIngredient } from '@utils-types';
+import { TConstructorIngredient, TIngredient } from '@utils-types';
+import { v4 as uuidv4 } from 'uuid';
 
 type TConstructorState = {
   bun: TConstructorIngredient | null;
@@ -19,16 +20,37 @@ const constructorSlice = createSlice({
   name: 'constructor',
   initialState,
   reducers: {
-    setIngredient(state, action) {
+    setIngredient(state, action: { payload: TIngredient }) {
       if (action.payload.type === 'bun') {
-        state.bun = action.payload;
+        state.bun = { id: uuidv4(), ...action.payload };
       } else {
-        state.ingredients.push(action.payload);
+        state.ingredients.push({ id: uuidv4(), ...action.payload });
       }
+    },
+    moveUpIngredient(state, action: { payload: number }) {
+      const index = action.payload;
+      const movedIngredient = state.ingredients[index - 1];
+      state.ingredients[index - 1] = state.ingredients[index];
+      state.ingredients[index] = movedIngredient;
+    },
+    moveDownIngredient(state, action: { payload: number }) {
+      const index = action.payload;
+      const movedIngredient = state.ingredients[index + 1];
+      state.ingredients[index + 1] = state.ingredients[index];
+      state.ingredients[index] = movedIngredient;
+    },
+    removeIngredient(state, action: { payload: number }) {
+      const index = action.payload;
+      state.ingredients = state.ingredients.filter((_, i) => i !== index);
     }
   }
 });
 
-export const { setIngredient } = constructorSlice.actions;
+export const {
+  setIngredient,
+  moveUpIngredient,
+  moveDownIngredient,
+  removeIngredient
+} = constructorSlice.actions;
 
 export default constructorSlice.reducer;
