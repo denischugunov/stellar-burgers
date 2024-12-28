@@ -7,7 +7,6 @@ import { useParams } from 'react-router-dom';
 import { getOrder } from '../../services/slices/orderSlice';
 
 export const OrderInfo: FC = () => {
-  /** TODO: взять переменные orderData и ingredients из стора */
   const dispatch = useDispatch();
   const { number } = useParams();
   const orderData = useSelector((state) => state.order.orderModalData);
@@ -20,7 +19,6 @@ export const OrderInfo: FC = () => {
     (state) => state.ingredients.data
   );
 
-  /* Готовим данные для отображения */
   const orderInfo = useMemo(() => {
     if (!orderData || !ingredients.length) return null;
 

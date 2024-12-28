@@ -23,7 +23,8 @@ import { useDispatch } from '../../services/store';
 import { useEffect } from 'react';
 import { getIngredients } from '../../services/slices/ingredientsSlice';
 import { getFeeds } from '../../services/slices/feedsSlice';
-import { getOrders } from '../../services/slices/orderSlice';
+import { getUser } from '../../services/slices/userSlice';
+import { clearOrder } from '../../services/slices/orderSlice';
 
 const App = () => {
   const location = useLocation();
@@ -31,11 +32,11 @@ const App = () => {
   const navigate = useNavigate();
 
   const backgroundLocation = location.state?.background;
-  console.log(location.state);
 
   useEffect(() => {
     dispatch(getIngredients());
     dispatch(getFeeds());
+    dispatch(getUser());
   }, [dispatch]);
 
   return (
@@ -95,7 +96,13 @@ const App = () => {
           <Route
             path='/feed/:number'
             element={
-              <Modal title={'Информация о заказе'} onClose={() => navigate(-1)}>
+              <Modal
+                title={'Информация о заказе'}
+                onClose={() => {
+                  navigate(-1);
+                  dispatch(clearOrder());
+                }}
+              >
                 <OrderInfo />
               </Modal>
             }
@@ -114,7 +121,10 @@ const App = () => {
               <ProtectedRoute>
                 <Modal
                   title={'Информация о заказе'}
-                  onClose={() => navigate(-1)}
+                  onClose={() => {
+                    navigate(-1);
+                    dispatch(clearOrder());
+                  }}
                 >
                   <OrderInfo />
                 </Modal>

@@ -65,6 +65,10 @@ export const updateUser = createAsyncThunk(
   }
 );
 
+export const getUser = createAsyncThunk('user/getUser', async () =>
+  getUserApi()
+);
+
 const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -128,7 +132,21 @@ const userSlice = createSlice({
             };
           }
         }
-      );
+      )
+      .addCase(getUser.pending, (state) => {
+        state.isLoginRequest = true;
+      })
+      .addCase(getUser.rejected, (state, action) => {
+        state.userData = null;
+        state.isLoginRequest = false;
+        state.error = action.error.message!;
+      })
+      .addCase(getUser.fulfilled, (state, action) => {
+        state.userData = action.payload.user;
+        console.log(action.payload, 888);
+        state.isLoginRequest = false;
+        state.isAuth = true;
+      });
   }
 });
 
