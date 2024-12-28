@@ -111,7 +111,6 @@ const userSlice = createSlice({
       .addCase(logoutUser.fulfilled, (state) => {
         state.isAuth = false;
         state.isLoginRequest = false;
-        console.log(1);
         state.userData = null;
       })
       .addCase(updateUser.pending, (state) => {
@@ -143,7 +142,6 @@ const userSlice = createSlice({
       })
       .addCase(getUser.fulfilled, (state, action) => {
         state.userData = action.payload.user;
-        console.log(action.payload, 888);
         state.isLoginRequest = false;
         state.isAuth = true;
       });
