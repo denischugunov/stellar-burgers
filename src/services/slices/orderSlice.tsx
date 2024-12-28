@@ -15,10 +15,6 @@ type TOrderState = {
   error: null | SerializedError;
   data: TOrder[];
   orderRequest: boolean;
-  newOrderData: {
-    order: TOrder;
-    name: string;
-  } | null;
   orderModalData: TOrder | null;
 };
 
@@ -27,7 +23,6 @@ export const initialState: TOrderState = {
   error: null,
   data: [],
   orderRequest: false,
-  newOrderData: null,
   orderModalData: null
 };
 
@@ -51,7 +46,12 @@ export const setOrder = createAsyncThunk(
 const ingredientsSlice = createSlice({
   name: 'orders',
   initialState,
-  reducers: {},
+  reducers: {
+    clearOrder(state) {
+      state.data = [];
+      state.orderModalData = null;
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getOrders.pending, (state) => {
@@ -76,8 +76,9 @@ const ingredientsSlice = createSlice({
       })
       .addCase(setOrder.fulfilled, (state, action) => {
         state.orderRequest = false;
-        state.newOrderData = action.payload;
-        state.data = [action.payload.order, ...state.data];
+        const { order, name } = action.payload;
+        state.orderModalData = order;
+        state.data = [order, ...state.data];
       })
       .addCase(getOrder.pending, (state) => {
         state.loading = true;
@@ -96,6 +97,6 @@ const ingredientsSlice = createSlice({
 
 const { actions, reducer } = ingredientsSlice;
 
-export const {} = actions;
+export const { clearOrder } = actions;
 
 export default reducer;

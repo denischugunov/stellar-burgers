@@ -42,6 +42,10 @@ const constructorSlice = createSlice({
     removeIngredient(state, action: { payload: number }) {
       const index = action.payload;
       state.ingredients = state.ingredients.filter((_, i) => i !== index);
+    },
+    removeIngredients(state) {
+      state.bun = null;
+      state.ingredients = [];
     }
   }
 });
@@ -50,7 +54,8 @@ export const {
   setIngredient,
   moveUpIngredient,
   moveDownIngredient,
-  removeIngredient
+  removeIngredient,
+  removeIngredients
 } = constructorSlice.actions;
 
 export default constructorSlice.reducer;
