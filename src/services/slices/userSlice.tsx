@@ -65,9 +65,7 @@ export const updateUser = createAsyncThunk(
   }
 );
 
-export const getUser = createAsyncThunk('user/getUser', async () =>
-  getUserApi()
-);
+export const getUser = createAsyncThunk('user/getUser', getUserApi);
 
 const userSlice = createSlice({
   name: 'user',

@@ -26,9 +26,7 @@ export const initialState: TOrderState = {
   orderModalData: null
 };
 
-export const getOrders = createAsyncThunk('orders/getAll', async () =>
-  getOrdersApi()
-);
+export const getOrders = createAsyncThunk('orders/getAll', getOrdersApi);
 
 export const getOrder = createAsyncThunk(
   'orders/getOrder',
@@ -38,10 +36,7 @@ export const getOrder = createAsyncThunk(
   }
 );
 
-export const setOrder = createAsyncThunk(
-  'orders/setOrder',
-  async (data: string[]) => orderBurgerApi(data)
-);
+export const setOrder = createAsyncThunk('orders/setOrder', orderBurgerApi);
 
 const ingredientsSlice = createSlice({
   name: 'orders',
