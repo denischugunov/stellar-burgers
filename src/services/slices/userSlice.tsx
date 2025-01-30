@@ -24,7 +24,7 @@ type TUserState = {
   userData: TUser | null;
 };
 
-const initialState: TUserState = {
+export const initialState: TUserState = {
   isAuth: false,
   isLoginRequest: false,
   error: '',

@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rootReducer initialization should return the initial state when no action is dispatched 1`] = `
+{
+  "constructorBurger": {
+    "bun": null,
+    "ingredients": [],
+  },
+  "feed": {
+    "data": {
+      "orders": [],
+      "total": 0,
+      "totalToday": 0,
+    },
+    "error": null,
+    "loading": true,
+  },
+  "ingredients": {
+    "data": [],
+    "error": null,
+    "loading": true,
+  },
+  "order": {
+    "data": [],
+    "error": null,
+    "loading": true,
+    "orderModalData": null,
+    "orderRequest": false,
+  },
+  "user": {
+    "error": "",
+    "isAuth": false,
+    "isLoginRequest": false,
+    "userData": null,
+  },
+}
+`;
+
+exports[`проверка инициализации rootReducer снепшот должен показать начальное состояние стора 1`] = `
+{
+  "constructorBurger": {
+    "bun": null,
+    "ingredients": [],
+  },
+  "feed": {
+    "data": {
+      "orders": [],
+      "total": 0,
+      "totalToday": 0,
+    },
+    "error": null,
+    "loading": true,
+  },
+  "ingredients": {
+    "data": [],
+    "error": null,
+    "loading": true,
+  },
+  "order": {
+    "data": [],
+    "error": null,
+    "loading": true,
+    "orderModalData": null,
+    "orderRequest": false,
+  },
+  "user": {
+    "error": "",
+    "isAuth": false,
+    "isLoginRequest": false,
+    "userData": null,
+  },
+}
+`;
